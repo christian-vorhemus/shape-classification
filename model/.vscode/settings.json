@@ -1,0 +1,5 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": false,
+    "python.pythonPath": "C:\\Users\\chvorhem\\AppData\\local\\AmlWorkbench\\Python\\python.exe"
+}
