@@ -6,7 +6,7 @@ $(function () {
 
     async function prepareModel() {
         console.log("Download model...");
-		model = await tf.loadModel('');
+		model = await tf.loadModel('https://raw.githubusercontent.com/christian-vorhemus/shape-classification/master/model/models/shapedetection_model/model.json');
         console.log("Model downloaded");
     }
     
