@@ -45,7 +45,7 @@ print("maxSequenceLength: " + str(maxSequenceLength))
 encoder = LabelEncoder()
 encoder.fit(y_values)
 y_encoded = encoder.transform(y_values)
-# convert integers to dummy variables (i.e. one hot encoded)
+# convert values one hot encoded
 y_values = np_utils.to_categorical(y_encoded)
 
 np.random.seed(7)
@@ -58,12 +58,6 @@ X_train = np.reshape(X_train, (np.array(X_train).shape[0], np.array(X_train).sha
 X_test = np.reshape(X_test, (np.array(X_test).shape[0], np.array(X_test).shape[1], 2))
 
 # Create model
-#model = Sequential()
-#model.add(LSTM(100))
-#model.add(Dense(3, activation='softmax'))
-#model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['categorical_accuracy'])
-#history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=20)
-
 model = Sequential()
 model.add(Bidirectional(LSTM(20, return_sequences=True)))
 model.add(Bidirectional(LSTM(20)))
@@ -74,8 +68,8 @@ history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=3
 
 training_loss = history.history['loss']
 test_loss = history.history['val_loss']
-#training_accuracy = history.history['acc']
-#test_accuracy = history.history['val_acc']
+training_accuracy = history.history['acc']
+test_accuracy = history.history['val_acc']
 
 # Create count of the number of epochs
 epoch_count = range(1, len(training_loss) + 1)
