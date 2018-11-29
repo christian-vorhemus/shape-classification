@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.externals import joblib 
 
-saveModel = True
+saveModel = False
 
 def create_dataset():
     X_values = []
@@ -68,20 +68,29 @@ history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=3
 
 training_loss = history.history['loss']
 test_loss = history.history['val_loss']
-training_accuracy = history.history['acc']
-test_accuracy = history.history['val_acc']
+training_accuracy = history.history['categorical_accuracy']
+test_accuracy = history.history['val_categorical_accuracy']
 
 # Create count of the number of epochs
 epoch_count = range(1, len(training_loss) + 1)
 
 if(saveModel):
     tfjs.converters.save_keras_model(model, 'models/shapedetection_model')
-    #model.save('models/shapedetection_model.h5')
+    model.save('models/shapedetection_model.h5')
 
 # Visualize loss history
+plt.subplot(1, 2, 1)
 plt.plot(epoch_count, training_loss, 'r--')
 plt.plot(epoch_count, test_loss, 'b-')
 plt.legend(['Training Loss', 'Test Loss'])
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
+
+plt.subplot(1, 2, 2)
+plt.plot(epoch_count, training_accuracy, 'r--')
+plt.plot(epoch_count, test_accuracy, 'b-')
+plt.legend(['Trainign accuracy', 'Test accuracy'])
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+
 plt.show()
